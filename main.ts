@@ -36,11 +36,11 @@ enum NeoPixelMode {
  * Functions to operate NeoPixel strips.
  */
 //% weight=5 color=#58ACFA icon="\uf057" block="ponybot light"
-namespace ponybotLight {
+namespace neopixel {
     /**
      * A NeoPixel strip
      */
-    export class strip {
+    export class Strip {
         buf: Buffer;
         pin: DigitalPin;
         // TODO: encode as bytes instead of 32bit
@@ -574,4 +574,20 @@ namespace ponybotLight {
         CounterClockwise,
         Shortest
     }
+}
+
+namespace ws2812b {
+    //% shim=sendBufferAsm
+    export function sendBuffer(buf: Buffer, pin: DigitalPin) {
+    }
+
+    //% shim=setBufferMode
+    export function setBufferMode(pin: DigitalPin, mode: number) {
+
+    }
+
+    export const BUFFER_MODE_RGB = 1
+    export const BUFFER_MODE_RGBW = 2
+    export const BUFFER_MODE_RGB_RGB = 3
+    export const BUFFER_MODE_AP102 = 4
 }
