@@ -59,7 +59,7 @@ namespace neopixel {
          */
         //% blockId="neopixel_set_strip_color" block="%strip| 라이트를 모두 %rgb=neopixel_colors| 으로 켜기 "
         //% strip.defl=strip
-        //% weight=85 blockGap=8
+        //% weight=70 blockGap=8
         //% group="라이트 제어(기초)"
         showColor(rgb: number) {
             rgb = rgb >> 0;
@@ -77,7 +77,7 @@ namespace neopixel {
         //% group="라이트 제어(심화)"
         //% blockId="neopixel_set_strip_rainbow" block="%strip|라이트 무지개 효과 - 시작색: %startHue|, 종료색: %endHue"
         //% strip.defl=strip
-        //% weight=85 blockGap=8
+        //% weight=70 blockGap=8
         //%startHue.min=0 startHue.max=360
         //%endHue.min=0 endHue.max=360
         showRainbow(startHue: number = 1, endHue: number = 360) {
@@ -144,7 +144,7 @@ namespace neopixel {
          * @param high maximum value, eg: 255
          */
         //% group="라이트 제어(심화)"
-        //% weight=84 blockGap=8
+        //% weight=60 blockGap=8
         //% blockId=neopixel_show_bar_graph block="%strip|라이트 그래프 효과 - 그래프로 나타낼 값: %value|, 최대값: %high"
         //% strip.defl=strip
         showBarGraph(value: number, high: number): void {
@@ -185,7 +185,7 @@ namespace neopixel {
         //% blockId="neopixel_set_pixel_color" block="%strip|의 %pixeloffset|번째 라이트 색상을 %rgb=neopixel_colors으로 설정하기"
         //% strip.defl=strip
         //% blockGap=8
-        //% weight=80
+        //% weight=90
         setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset >> 0, rgb >> 0);
         }
@@ -197,7 +197,7 @@ namespace neopixel {
         //% group="라이트 제어(심화)"
         //% blockId="neopixel_show" block="%strip|라이트를 설정한대로 켜기" blockGap=8
         //% strip.defl=strip
-        //% weight=79
+        //% weight=80
         show() {
             // only supported in beta
             // ws2812b.setBufferMode(this.pin, this._mode);
@@ -211,7 +211,7 @@ namespace neopixel {
         //% group="라이트 제어(기초)"
         //% blockId="neopixel_clear" block="%strip|라이트 모두 끄기" blockGap=8
         //% strip.defl=strip
-        //% weight=76
+        //% weight=60
         clear(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.fill(0, this.start * stride, this._length * stride);
@@ -224,7 +224,7 @@ namespace neopixel {
         //% group="라이트 제어(심화)"
         //% blockId="neopixel_length" block="%strip|라이트의 개수" blockGap=8
         //% strip.defl=strip
-        //% weight=60
+        //% weight=100
         length() {
             return this._length;
         }
@@ -236,7 +236,7 @@ namespace neopixel {
         //% group="라이트 제어(기초)"
         //% blockId="neopixel_set_brightness" block="%strip|라이트의 밝기를 %brightness로 변경하기" blockGap=8
         //% strip.defl=strip
-        //% weight=59
+        //% weight=80
         setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
         }
@@ -248,7 +248,7 @@ namespace neopixel {
          * @param length number of LEDs in the range. eg: 4
          */
         //% group="라이트 제어(기초)"
-        //% weight=89
+        //% weight=90
         //% blockId="neopixel_range" block="%strip|의 %start|번째부터 %length|개의 라이트(LED) "
         //% strip.defl=strip
         //% length.defl=3
@@ -266,34 +266,6 @@ namespace neopixel {
             strip._matrixWidth = 0;
             strip._mode = this._mode;
             return strip;
-        }
-
-        /**
-         * Shift LEDs forward and clear with zeros.
-         * You need to call ``show`` to make the changes visible.
-         * @param offset number of pixels to shift forward, eg: 1
-         */
-        //% blockId="neopixel_shift" block="%strip|shift pixels by %offset" blockGap=8
-        //% strip.defl=strip
-        //% weight=40
-        shift(offset: number = 1): void {
-            offset = offset >> 0;
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
-        }
-
-        /**
-         * Rotate LEDs forward.
-         * You need to call ``show`` to make the changes visible.
-         * @param offset number of pixels to rotate forward, eg: 1
-         */
-        //% blockId="neopixel_rotate" block="%strip|rotate pixels by %offset" blockGap=8
-        //% strip.defl=strip
-        //% weight=39
-        rotate(offset: number = 1): void {
-            offset = offset >> 0;
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
         }
 
         /**
@@ -395,7 +367,7 @@ namespace neopixel {
      */
     //% blockId="neopixel_create" block="%pin|에 연결된 %numleds|개의 %mode|타입 라이트"
     //% group="라이트 제어(기초)"
-    //% weight=90 blockGap=8
+    //% weight=100 blockGap=8
     //% parts="neopixel"
     //% trackArgs=0,2
     //% blockSetVariable=strip
@@ -614,4 +586,34 @@ namespace neopixel {
     //     return Math.idiv(this.length() * 7, 10) /* 0.7mA per neopixel */
     //         + Math.idiv(p * 480, 10000); /* rought approximation */
     // }
+
+    /**
+     * Shift LEDs forward and clear with zeros.
+     * You need to call ``show`` to make the changes visible.
+     * @param offset number of pixels to shift forward, eg: 1
+         
+    //% blockId="neopixel_shift" block="%strip|shift pixels by %offset" blockGap=8
+    //% strip.defl=strip
+    //% weight=40
+    shift(offset: number = 1): void {
+        offset = offset >> 0;
+        const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+        this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
+    }
+    */
+
+    /**
+     * Rotate LEDs forward.
+     * You need to call ``show`` to make the changes visible.
+     * @param offset number of pixels to rotate forward, eg: 1
+         
+    //% blockId="neopixel_rotate" block="%strip|rotate pixels by %offset" blockGap=8
+    //% strip.defl=strip
+    //% weight=39
+    rotate(offset: number = 1): void {
+        offset = offset >> 0;
+        const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+        this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
+    }
+    */
 }
