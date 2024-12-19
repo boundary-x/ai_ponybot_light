@@ -25,6 +25,9 @@ enum NeoPixelMode {
     RGB_RGB = 3
 }
 
+/**
+ * Functions to operate NeoPixel strips.
+ */
 //% weight=5 color=#58ACFA icon="\uf057" block="ponybot light"
 namespace neopixel {
     /**
@@ -251,7 +254,7 @@ namespace neopixel {
         clear(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.fill(0, this.start * stride, this._length * stride);
-            //this.show();
+            this.show();
         }
 
         /**
@@ -275,7 +278,7 @@ namespace neopixel {
         //% weight=59
         setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
-            this.show();
+            //this.show();
         }
 
 
