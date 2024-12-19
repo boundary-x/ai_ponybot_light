@@ -242,6 +242,34 @@ namespace neopixel {
 
 
         /**
+         * Apply brightness to current colors using a quadratic easing function.
+        
+        //% blockId="neopixel_each_brightness" block="%strip|ease brightness" blockGap=8
+        //% strip.defl=strip
+        //% weight=58
+        easeBrightness(): void {
+            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const br = this.brightness;
+            const buf = this.buf;
+            const end = this.start + this._length;
+            const mid = Math.idiv(this._length, 2);
+            for (let i = this.start; i < end; ++i) {
+                const k = i - this.start;
+                const ledoffset = i * stride;
+                const br = k > mid
+                    ? Math.idiv(255 * (this._length - 1 - k) * (this._length - 1 - k), (mid * mid))
+                    : Math.idiv(255 * k * k, (mid * mid));
+                const r = (buf[ledoffset + 0] * br) >> 8; buf[ledoffset + 0] = r;
+                const g = (buf[ledoffset + 1] * br) >> 8; buf[ledoffset + 1] = g;
+                const b = (buf[ledoffset + 2] * br) >> 8; buf[ledoffset + 2] = b;
+                if (stride == 4) {
+                    const w = (buf[ledoffset + 3] * br) >> 8; buf[ledoffset + 3] = w;
+                }
+            }
+        }
+        */
+
+        /**
          * Create a range of LEDs.
          * @param start offset in the LED strip to start the range
          * @param length number of LEDs in the range. eg: 4
@@ -459,7 +487,6 @@ namespace neopixel {
         return packRGB(red, green, blue);
     }
 
-    //-------------------------------------색상 블록--------------------------------------
     /**
      * Gets the RGB value of a known color
     */
@@ -536,82 +563,4 @@ namespace neopixel {
         CounterClockwise,
         Shortest
     }
-    //------------------------------------비활성 블록-------------------------------------------
-    /**
-     * Sets the number of pixels in a matrix shaped strip
-     * @param width number of pixels in a row
-    
-    //% blockId=neopixel_set_matrix_width block="%strip|set matrix width %width"
-    //% strip.defl=strip
-    //% blockGap=8
-    //% weight=5
-    setMatrixWidth(width: number) {
-        this._matrixWidth = Math.min(this._length, width >> 0);
-    }
-    */
-
-    /**
-     * Set LED to a given color (range 0-255 for r, g, b) in a matrix shaped strip
-     * You need to call ``show`` to make the changes visible.
-     * @param x horizontal position
-     * @param y horizontal position
-     * @param rgb RGB color of the LED
-    
-    //% blockId="neopixel_set_matrix_color" block="%strip|set matrix color at x %x|y %y|to %rgb=neopixel_colors"
-    //% strip.defl=strip
-    //% weight=4
-    setMatrixColor(x: number, y: number, rgb: number) {
-        if (this._matrixWidth <= 0) return; // not a matrix, ignore
-        x = x >> 0;
-        y = y >> 0;
-        rgb = rgb >> 0;
-        const cols = Math.idiv(this._length, this._matrixWidth);
-        if (x < 0 || x >= this._matrixWidth || y < 0 || y >= cols) return;
-        let i = x + y * this._matrixWidth;
-        this.setPixelColor(i, rgb);
-    }
-    */
-
-    /**
-     * For NeoPixels with RGB+W LEDs, set the white LED brightness. This only works for RGB+W NeoPixels.
-     * @param pixeloffset position of the LED in the strip
-     * @param white brightness of the white LED
-    //% blockId="neopixel_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white"
-    //% strip.defl=strip
-    //% blockGap=8
-    //% weight=80
-    setPixelWhiteLED(pixeloffset: number, white: number): void {
-        if (this._mode === NeoPixelMode.RGBW) {
-            this.setPixelW(pixeloffset >> 0, white >> 0);
-        }
-    }
-    */
-
-    /**
-     * Apply brightness to current colors using a quadratic easing function.
-    
-    //% blockId="neopixel_each_brightness" block="%strip|ease brightness" blockGap=8
-    //% strip.defl=strip
-    //% weight=58
-    easeBrightness(): void {
-        const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-        const br = this.brightness;
-        const buf = this.buf;
-        const end = this.start + this._length;
-        const mid = Math.idiv(this._length, 2);
-        for (let i = this.start; i < end; ++i) {
-            const k = i - this.start;
-            const ledoffset = i * stride;
-            const br = k > mid
-                ? Math.idiv(255 * (this._length - 1 - k) * (this._length - 1 - k), (mid * mid))
-                : Math.idiv(255 * k * k, (mid * mid));
-            const r = (buf[ledoffset + 0] * br) >> 8; buf[ledoffset + 0] = r;
-            const g = (buf[ledoffset + 1] * br) >> 8; buf[ledoffset + 1] = g;
-            const b = (buf[ledoffset + 2] * br) >> 8; buf[ledoffset + 2] = b;
-            if (stride == 4) {
-                const w = (buf[ledoffset + 3] * br) >> 8; buf[ledoffset + 3] = w;
-            }
-        }
-    }
-    */
 }
