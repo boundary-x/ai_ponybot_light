@@ -69,12 +69,12 @@ namespace neopixel {
          * @param startHue the start hue value for the rainbow, eg: 1
          * @param endHue the end hue value for the rainbow, eg: 360
          */
-        //%group="라이트 제어(심화)"
+        //% group="라이트 제어(심화)"
         //% blockId="neopixel_set_strip_rainbow" block="%strip|라이트 무지개 효과 - 시작색: %startHue|, 종료색: %endHue"
         //% strip.defl=strip
         //% weight=85 blockGap=8
-        //%startHue.min=0 startHue.max=360
-        //%endHue.min=0 endHue.max=360
+        //% startHue.min=0 startHue.max=360
+        //% endHue.min=0 endHue.max=360
         showRainbow(startHue: number = 1, endHue: number = 360) {
             if (this._length <= 0) return;
 
