@@ -247,7 +247,7 @@ namespace neopixel {
          */
         //% group="라이트 제어(기초)"
         //% weight=89
-        //% blockId="neopixel_range" block="%strip|의 %start|번째부터 %length|번째까지 라이트"
+        //% blockId="neopixel_range" block="%strip|의 %start|번째부터 %length|개의 라이트(LED) "
         //% strip.defl=strip
         //% length.defl=3
         //% blockSetVariable=range
