@@ -24,6 +24,8 @@ enum NeoPixelMode {
     //% block="RGB (RGB format)"
     RGB_RGB = 3
 }
+
+//% weight=5 color=#58ACFA icon="\uf057" block="ponybot light"
 namespace neopixel {
     /**
      * A NeoPixel strip
