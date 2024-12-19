@@ -57,65 +57,11 @@ namespace neopixel {
          */
         //% blockId="neopixel_set_strip_color" block="%strip| 라이트를 모두 %rgb=neopixel_colors| 으로 켜기 "
         //% strip.defl=strip
-        //% weight=70 blockGap=8
+        //% weight=85 blockGap=8
         //% group="라이트 제어(기초)"
         showColor(rgb: number) {
             rgb = rgb >> 0;
             this.setAllRGB(rgb);
-            this.show();
-        }
-
-        /**
-         * Set the brightness of the strip. This flag only applies to future operation.
-         * @param brightness a measure of LED brightness in 0-255. eg: 255
-         */
-        //% group="라이트 제어(기초)"
-        //% blockId="neopixel_set_brightness" block="%strip|라이트의 밝기를 %brightness로 변경하기" blockGap=8
-        //% strip.defl=strip
-        //% weight=80
-        setBrightness(brightness: number): void {
-            this.brightness = brightness & 0xff;
-            this.show();
-        }
-
-
-        /**
-         * Create a range of LEDs.
-         * @param start offset in the LED strip to start the range
-         * @param length number of LEDs in the range. eg: 4
-         */
-        //% group="라이트 제어(기초)"
-        //% weight=90
-        //% blockId="neopixel_range" block="%strip|의 %start|번째부터 %length|번째까지 라이트"
-        //% strip.defl=strip
-        //% length.defl=3
-        //% blockSetVariable=range
-
-        range(start: number, length: number): Strip {
-            start = start >> 0;
-            length = length >> 0;
-            let strip = new Strip();
-            strip.buf = this.buf;
-            strip.pin = this.pin;
-            strip.brightness = this.brightness;
-            strip.start = this.start + Math.clamp(0, this._length - 1, start);
-            strip._length = Math.clamp(0, this._length - (strip.start - this.start), length);
-            strip._matrixWidth = 0;
-            strip._mode = this._mode;
-            return strip;
-        }
-
-        /**
-         * Turn off all LEDs.
-         * You need to call ``show`` to make the changes visible.
-         */
-        //% group="라이트 제어(기초)"
-        //% blockId="neopixel_clear" block="%strip|라이트 모두 끄기" blockGap=8
-        //% strip.defl=strip
-        //% weight=60
-        clear(): void {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            this.buf.fill(0, this.start * stride, this._length * stride);
             this.show();
         }
 
@@ -129,7 +75,7 @@ namespace neopixel {
         //% group="라이트 제어(심화)"
         //% blockId="neopixel_set_strip_rainbow" block="%strip|라이트 무지개 효과 - 시작색: %startHue|, 종료색: %endHue"
         //% strip.defl=strip
-        //% weight=60 blockGap=8
+        //% weight=85 blockGap=8
         //%startHue.min=0 startHue.max=360
         //%endHue.min=0 endHue.max=360
         showRainbow(startHue: number = 1, endHue: number = 360) {
@@ -196,7 +142,7 @@ namespace neopixel {
          * @param high maximum value, eg: 255
          */
         //% group="라이트 제어(심화)"
-        //% weight=70 blockGap=8
+        //% weight=84 blockGap=8
         //% blockId=neopixel_show_bar_graph block="%strip|라이트 그래프 효과 - 그래프로 나타낼 값: %value|, 최대값: %high"
         //% strip.defl=strip
         showBarGraph(value: number, high: number): void {
@@ -237,7 +183,7 @@ namespace neopixel {
         //% blockId="neopixel_set_pixel_color" block="%strip|의 %pixeloffset|번째 라이트 색상을 %rgb=neopixel_colors으로 설정하기"
         //% strip.defl=strip
         //% blockGap=8
-        //% weight=90
+        //% weight=80
         setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset >> 0, rgb >> 0);
         }
@@ -249,13 +195,26 @@ namespace neopixel {
         //% group="라이트 제어(심화)"
         //% blockId="neopixel_show" block="%strip|라이트를 설정한대로 켜기" blockGap=8
         //% strip.defl=strip
-        //% weight=80
+        //% weight=79
         show() {
             // only supported in beta
             // ws2812b.setBufferMode(this.pin, this._mode);
             ws2812b.sendBuffer(this.buf, this.pin);
         }
 
+        /**
+         * Turn off all LEDs.
+         * You need to call ``show`` to make the changes visible.
+         */
+        //% group="라이트 제어(기초)"
+        //% blockId="neopixel_clear" block="%strip|라이트 모두 끄기" blockGap=8
+        //% strip.defl=strip
+        //% weight=76
+        clear(): void {
+            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            this.buf.fill(0, this.start * stride, this._length * stride);
+            this.show();
+        }
 
         /**
          * Gets the number of pixels declared on the strip
@@ -263,9 +222,49 @@ namespace neopixel {
         //% group="라이트 제어(심화)"
         //% blockId="neopixel_length" block="%strip|라이트의 개수" blockGap=8
         //% strip.defl=strip
-        //% weight=100
+        //% weight=60
         length() {
             return this._length;
+        }
+
+        /**
+         * Set the brightness of the strip. This flag only applies to future operation.
+         * @param brightness a measure of LED brightness in 0-255. eg: 255
+         */
+        //% group="라이트 제어(기초)"
+        //% blockId="neopixel_set_brightness" block="%strip|라이트의 밝기를 %brightness로 변경하기" blockGap=8
+        //% strip.defl=strip
+        //% weight=59
+        setBrightness(brightness: number): void {
+            this.brightness = brightness & 0xff;
+            this.show();
+        }
+
+
+        /**
+         * Create a range of LEDs.
+         * @param start offset in the LED strip to start the range
+         * @param length number of LEDs in the range. eg: 4
+         */
+        //% group="라이트 제어(기초)"
+        //% weight=89
+        //% blockId="neopixel_range" block="%strip|의 %start|번째부터 %length|번째까지 라이트"
+        //% strip.defl=strip
+        //% length.defl=3
+        //% blockSetVariable=range
+
+        range(start: number, length: number): Strip {
+            start = start >> 0;
+            length = length >> 0;
+            let strip = new Strip();
+            strip.buf = this.buf;
+            strip.pin = this.pin;
+            strip.brightness = this.brightness;
+            strip.start = this.start + Math.clamp(0, this._length - 1, start);
+            strip._length = Math.clamp(0, this._length - (strip.start - this.start), length);
+            strip._matrixWidth = 0;
+            strip._mode = this._mode;
+            return strip;
         }
 
         /**
@@ -414,7 +413,8 @@ namespace neopixel {
      */
     //% blockId="neopixel_create" block="%pin|에 연결된 %numleds|개의 %mode|타입 라이트"
     //% group="라이트 제어(기초)"
-    //% weight=100 blockGap=8
+    //% weight=90 blockGap=8
+    //% parts="neopixel"
     //% trackArgs=0,2
     //% blockSetVariable=strip
     //% pin.defl=DigitalPin.P8
@@ -431,8 +431,6 @@ namespace neopixel {
         strip.setPin(pin)
         return strip;
     }
-
-    //-------------------------------------색상 블록-------------------------------------
 
     /**
      * Converts red, green, blue channels into a RGB color
@@ -461,6 +459,7 @@ namespace neopixel {
         return packRGB(red, green, blue);
     }
 
+    //-------------------------------------색상 블록--------------------------------------
     /**
      * Gets the RGB value of a known color
     */
