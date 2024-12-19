@@ -13,11 +13,13 @@ enum NeoPixelColors {
     //% block=파란색(blue)
     Blue = 0x0000FF,
     //% block=남색(indigo)
-    Indigo = 0x4b0082,
+    Indigo = 0x000080,
     //% block=보라색(violet)
     Violet = 0x8a2be2,
     //% block=흰색(white)
-    White = 0xFFFFFF
+    White = 0xFFFFFF,
+    //% block=끄기
+    black = 0x000000
 }
 
 /**
