@@ -2,7 +2,7 @@
 ![ai ponybot](https://github.com/user-attachments/assets/69aa1ebe-e435-4b0e-8483-56d1c78d5ced)
 ![그림5](https://github.com/user-attachments/assets/f4d97932-5e42-46d3-ba94-7b5e29a37da5)
 
-NeoPixel light extension for AI Ponybot  
+# NeoPixel light extension for AI Ponybot  
 AI 포니봇용 네오픽셀 조명 확장 블록
 
 This MakeCode extension provides a set of programmable blocks for controlling the **AI Ponybot**, a micro:bit-based smart robot developed by **boundaryX**.  
