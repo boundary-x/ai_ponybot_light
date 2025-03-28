@@ -1,6 +1,7 @@
 {
-    "name": "AI ponybot_light",
-    "description": "",
+    "name": "ai-ponybot-light",
+    "description": "NeoPixel light control extension for AI Ponybot (bluetooth-safe)",
+    "license": "MIT",
     "dependencies": {
         "core": "*",
         "ws2812b": "github:microsoft/pxt-ws2812b#v0.1.1"
@@ -13,6 +14,7 @@
     "testFiles": [
         "test.ts"
     ],
+    "icon": "icon.png",
     "targetVersions": {
         "target": "7.0.57",
         "targetId": "microbit"
