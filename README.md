@@ -94,6 +94,13 @@ strip.clear()
 ```
 
 ---
+## 📦 Installation / 설치 방법
+
+In MakeCode editor, click **Extensions** → search for:  
+MakeCode 에디터에서 **Extensions** 클릭 → 아래 주소 입력  
+https://github.com/boundary-x/ai_ponybot_light
+
+---
 
 ## 🖼 Example Blocks / 블록 예시
 ![block example](https://github.com/user-attachments/assets/76379470-773a-453c-9405-0dd44fe0ff80)
