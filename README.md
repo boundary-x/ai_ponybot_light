@@ -13,21 +13,6 @@ It is separated from the main extension to ensure reliable Bluetooth communicati
 이 확장은 AI 포니봇에 내장된 4개의 네오픽셀 LED를 제어합니다.  
 스마트폰과의 블루투스 통신을 안정적으로 유지하기 위해 본체 확장에서 분리되어 개발되었습니다.
 
----
-
-## ℹ️ Why It's Separated / 왜 분리했나요?
-
-1. **AI Ponybot receives AI recognition results from a smartphone via Bluetooth.**  
-   포니봇은 스마트폰으로부터 AI 인식 결과를 블루투스를 통해 실시간으로 전달받습니다.
-
-2. **Including NeoPixel control in the main extension (`ai_ponybot_basic`) causes conflicts with the Bluetooth stack.**  
-   네오픽셀 제어 기능을 기본 확장(`ai_ponybot_basic`)에 포함시키면, 블루투스 블록과 충돌이 발생하게 됩니다.
-
-3. **To avoid these issues, NeoPixel-related blocks were moved to this separate extension (`ai_ponybot_light`).**  
-   이러한 충돌을 방지하기 위해 네오픽셀 관련 블록을 본 확장(`ai_ponybot_light`)으로 분리하였습니다.
-
-This approach ensures smooth AI data transmission and LED control without compromising stability.  
-이 방식은 AI 인식 데이터 전송과 LED 제어를 모두 안정적으로 수행할 수 있도록 도와줍니다.
 
 ---
 
