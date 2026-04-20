@@ -39,11 +39,6 @@ enum NeoPixelMode {
  */
 //% weight=5 color=#58ACFA icon="\uf057" block="ponybot light"
 namespace neopixel {
-    //% shim=sendBufferAsm
-    function sendBufferAsm(buf: Buffer, pin: DigitalPin): void {
-        // Simulator stub - actual execution uses ASM shim
-    }
-
     /**
      * A NeoPixel strip
      */
@@ -202,7 +197,9 @@ namespace neopixel {
         //% strip.defl=strip
         //% weight=80
         show() {
-            sendBufferAsm(this.buffer, this.pin);
+            // only supported in beta
+            // ws2812b.setBufferMode(this.pin, this.mode);
+            ws2812b.sendBuffer(this.buffer, this.pin);
         }
 
         /**
